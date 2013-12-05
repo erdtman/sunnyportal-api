@@ -35,13 +35,15 @@ import org.apache.http.util.EntityUtils;
 public class SunnyPortal {
 
     /** User name for login request */
-    private static final String USERNAME      = "username";
+    private static final String USERNAME      = "";
     /** Password for login request */
-    private static final String PASSWORD      = "password";
+    private static final String PASSWORD      = "";
     /** Sunny Portal address */
     private static final String HOST          = "https://www.sunnyportal.com";
     /** Login path, used for posting login data */
-    private static final String LOGIN         = HOST + "/Templates/UserProfile.aspx";
+    private static final String LOGIN         = HOST + "/Templates/Start.aspx";
+    /** Open Inverter path, used for opening the inverter page */
+    private static final String OPEN_INVERTER = HOST + "/Templates/UserProfile.aspx";
     /** Select date path, used to select dates */
     private static final String SELECT_DATE   = HOST + "/FixedPages/InverterSelection.aspx";
     /** Download path, used for download requests */
@@ -152,7 +154,7 @@ public class SunnyPortal {
      *             in case of problems
      */
     private static void openInverter(CloseableHttpClient httpclient) throws IOException, ClientProtocolException {
-        HttpPost httpost = new HttpPost(LOGIN);
+        HttpPost httpost = new HttpPost(OPEN_INVERTER);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("__EVENTTARGET", "ctl00$NavigationLeftMenuControl$0_6"));
         httpost.setEntity(new UrlEncodedFormEntity(nvps, Consts.UTF_8));
@@ -172,7 +174,7 @@ public class SunnyPortal {
      *             in case of problems
      */
     private static void login(CloseableHttpClient httpclient) throws IOException, ClientProtocolException {
-        HttpPost httpost = new HttpPost("https://www.sunnyportal.com/Templates/Start.aspx");
+        HttpPost httpost = new HttpPost(LOGIN);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("ctl00$ContentPlaceHolder1$Logincontrol1$txtUserName", USERNAME));
         nvps.add(new BasicNameValuePair("ctl00$ContentPlaceHolder1$Logincontrol1$txtPassword", PASSWORD));
